@@ -1,0 +1,43 @@
+{
+  "experiment": "WSN Two-Layer Distributed Optimization Framework",
+  "version": "1.0.0",
+  "simulator": "NS-3.35",
+  "hardware_model": "TelosB (MSP430 @ 8MHz, CC2420 radio)",
+  "parameters": {
+    "p_min_dBm": -25.0,
+    "p_max_dBm": 0.0,
+    "eta_0": 0.01,
+    "delta": 0.005,
+    "T_adapt": 50,
+    "tau_th": 0.90,
+    "tau_min": 0.1,
+    "K_max": 300,
+    "convergence_threshold": 0.002,
+    "consensus_sigma": 0.85
+  },
+  "energy_model": {
+    "tx_current_mA": 17.4,
+    "rx_current_mA": 19.7,
+    "idle_current_mA": 1.0,
+    "sleep_current_mA": 0.001,
+    "voltage": 3.0,
+    "source": "TelosB CC2420 datasheet"
+  },
+  "network": {
+    "scales": [100, 200, 300, 500],
+    "area_width_m": 1000.0,
+    "area_height_m": 1000.0,
+    "comm_range_m": 80.0,
+    "topology": "geometric_random_graph"
+  },
+  "protocols": ["LEACH", "HEED", "PEGASIS", "DeepSensor", "FL-Energy", "Ours"],
+  "reproducibility": {
+    "seed": 42,
+    "num_runs": 30,
+    "significance_level": 0.05
+  },
+  "output": {
+    "format": "csv",
+    "figures": ["hnd_by_scale", "energy_timeseries", "jain_fairness", "ablation_study"]
+  }
+}

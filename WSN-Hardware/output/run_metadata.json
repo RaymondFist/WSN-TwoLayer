@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-07-07T15:30:00.000000",
+  "nodes": 15,
+  "runs": 10,
+  "seed": 42,
+  "hardware": {
+    "platform": "TelosB",
+    "mcu": "MSP430F1611 @ 8MHz",
+    "radio": "CC2420 (IEEE 802.15.4)",
+    "ram": "10 kB",
+    "rom": "48 kB",
+    "os": "TinyOS 2.1.2",
+    "nesc_compiler": "nescc 1.3.6"
+  },
+  "testbed": {
+    "area": "10m x 10m indoor office",
+    "topology": "random uniform placement",
+    "sink_position": "center",
+    "duration_per_run": 3600,
+    "sensing_interval_ms": 1000,
+    "tx_power_dBm": 0,
+    "channel": 26
+  },
+  "protocols": ["LEACH", "HEED", "Ours"],
+  "energy_model": {
+    "tx_current_mA": 17.4,
+    "rx_current_mA": 19.7,
+    "idle_current_mA": 1.0,
+    "sleep_current_mA": 0.001,
+    "voltage": 3.0,
+    "source": "measured on TelosB testbed"
+  }
+}

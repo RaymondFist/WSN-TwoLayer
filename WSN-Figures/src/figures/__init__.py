@@ -1,0 +1,1 @@
+# WSN Figures generation package

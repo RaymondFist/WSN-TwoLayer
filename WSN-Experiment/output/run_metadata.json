@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-07-07T01:07:40.524125",
+  "scales": [
+    100,
+    200,
+    300,
+    500
+  ],
+  "runs": 30,
+  "seed": 42,
+  "protocols": [
+    "LEACH",
+    "HEED",
+    "PEGASIS",
+    "DeepSensor",
+    "FL-Energy",
+    "Ours"
+  ],
+  "hardware_model": "TelosB (MSP430 @ 8MHz, CC2420 radio)",
+  "simulator": "Standalone (Python port of C++ wsn-experiment)",
+  "energy_model": {
+    "tx_current_mA": 17.4,
+    "rx_current_mA": 19.7,
+    "idle_current_mA": 1.0,
+    "sleep_current_mA": 0.001,
+    "voltage": 3.0,
+    "source": "TelosB CC2420 datasheet"
+  }
+}
