@@ -1,8 +1,8 @@
 Method,Distributed,Convergence Guarantee,Per-Node Complexity,Adaptation,RAM (kB),One-Hop Only
-Centralized [3],No,Yes (optimal),O(N²),No,>10,No
+Centralized,No,Yes (optimal),O(N²),No,>10,No
 LEACH,Yes,No,O(N),No,~3,No
 HEED,Yes,No,O(N),Partial,~4,No
 PEGASIS,Yes,No,O(N),No,~3,No
-DeepSensor [13],Yes,No (empirical),O(N·d),Online (RL),~12,No
-FL-Energy [11],Yes,No (empirical),O(N·d),Online (FL),~8,No
+DeepSensor,Yes,No (empirical),O(N·d),Online (RL),~12,No
+FL-Energy,Yes,No (empirical),O(N·d),Online (FL),~8,No
 Ours,Yes,Yes (O(1/√k)),O(|N_i|+d),Online (Feedback),4.2,Yes

@@ -1,16 +1,8 @@
 # WSN-TwoLayer: Two-Layer Distributed Optimization Framework for Wireless Sensor Networks
 
-Source code and data for the paper:
-
-> **"Energy-Efficient Distributed Optimization Framework for Wireless Sensor Networks: Theory and Practice"**
->
-> Hantao Chen, Zhouhua Zhang, Yujuan Wang, and Rufeng Zhang*
->
-> School of Computing and Artificial Intelligence, Guangzhou Xinhua University
-
 ## Project Overview
 
-This repository implements the two-layer distributed optimization framework described in the paper and provides all tools for reproducing the experimental results. The framework decomposes the global WSN energy management problem into per-node projected gradient descent (Layer 1) coordinated through doubly-stochastic consensus (Layer 2), with online adaptive weight tuning based on residual energy and delivery ratio.
+This repository implements a two-layer distributed optimization framework for wireless sensor network energy management, together with the tooling required to reproduce the experimental results. The framework decomposes the global WSN energy management problem into per-node projected gradient descent (Layer 1) coordinated through doubly-stochastic consensus (Layer 2), with online adaptive weight tuning based on residual energy and delivery ratio.
 
 ## Architecture
 
@@ -132,27 +124,27 @@ All experiments use real TelosB node parameters:
 ## Output Files
 
 ### Experiment Data (CSV)
-- `scale_{N}/hnd_by_scale.csv` — HND, energy efficiency, delivery ratio, convergence time, Jain fairness per protocol
-- `scale_{N}/energy_timeseries.csv` — Energy consumption over simulation rounds
-- `scale_{N}/jain_fairness.csv` — Jain's fairness index over time
-- `ablation_study.csv` — Ablation study results (6 variants)
+- `scale_{N}/hnd_by_scale.csv`: HND, energy efficiency, delivery ratio, convergence time, Jain fairness per protocol
+- `scale_{N}/energy_timeseries.csv`: Energy consumption over simulation rounds
+- `scale_{N}/jain_fairness.csv`: Jain's fairness index over time
+- `ablation_study.csv`: Ablation study results (6 variants)
 
 ### Figures (PNG, 300 DPI)
-- `fig1_network_lifetime.png` — HND comparison across scales
-- `fig2_energy_consumption.png` — Energy consumption per round
-- `fig3_load_balancing.png` — Jain's fairness over time
-- `fig4_delivery_ratio.png` — Delivery ratio vs network density
-- `fig5_convergence_rate.png` — Convergence rate analysis
-- `fig6_scalability.png` — Scalability (messages + RAM)
-- `fig7_hardware_validation.png` — TelosB hardware validation
+- `fig1_network_lifetime.png`: HND comparison across scales
+- `fig2_energy_consumption.png`: Energy consumption per round
+- `fig3_load_balancing.png`: Jain's fairness over time
+- `fig4_delivery_ratio.png`: Delivery ratio vs network density
+- `fig5_convergence_rate.png`: Convergence rate analysis
+- `fig6_scalability.png`: Scalability (messages + RAM)
+- `fig7_hardware_validation.png`: TelosB hardware validation
 
 ### Tables (CSV)
-- `table1_performance_comparison.csv` — 300-node performance comparison
-- `table2_algorithm_characteristics.csv` — Algorithm characteristics
-- `table3_ablation_study.csv` — Ablation study results
+- `table1_performance_comparison.csv`: 300-node performance comparison
+- `table2_algorithm_characteristics.csv`: Algorithm characteristics
+- `table3_ablation_study.csv`: Ablation study results
 
 ### Reports
-- `statistical_report.txt` — p-values, Cohen's d, confidence intervals, convergence rate
+- `statistical_report.txt`: p-values, Cohen's d, confidence intervals, convergence rate
 
 ## Key Parameters
 
@@ -182,14 +174,3 @@ All experiments use real TelosB node parameters:
 - Linux (Ubuntu 20.04/22.04, WSL2)
 - NS-3.35
 - C++14 compiler (GCC 7+, Clang 5+)
-
-## License
-
-This project is part of the academic research paper "Energy-Efficient Distributed Optimization Framework for Wireless Sensor Networks: Theory and Practice." The simulation code and experimental data are openly available at: https://github.com/RaymondFist/semantic-slam-yolov8
-
-## Funding
-
-This work was supported by:
-- 2023 Guangdong Undergraduate University Teaching Quality and Teaching Reform Project (Grant Nos. 2023CYXY003-2, 2023CYXY003)
-- 2024 Guangzhou Xinhua University Software Engineering First-Class Undergraduate Program (Grant No. 2024YLZY014)
-- 2024 Research Project of Guangzhou Xinhua University (Grant No. 2025KYYBZK03)

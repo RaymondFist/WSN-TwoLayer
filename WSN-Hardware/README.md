@@ -1,8 +1,6 @@
 # WSN Two-Layer Optimization - Hardware Validation
 
-TelosB/TinyOS hardware validation for the paper
-"Energy-Efficient Distributed Optimization Framework for Wireless Sensor
-Networks: Theory and Practice."
+TelosB/TinyOS hardware validation of the two-layer optimization framework.
 
 ## Architecture
 
@@ -59,11 +57,11 @@ cd WSN-Hardware
 python generate_figure.py
 ```
 
-This reads `output/validation_results.csv` and produces `output/fig7_hardware_validation.png` — a 2×2 comparison chart showing:
-- (a) Network lifetime (HND) — hardware vs simulation
-- (b) Energy efficiency — hardware vs simulation
-- (c) Delivery ratio — hardware vs simulation
-- (d) Jain fairness index — hardware vs simulation
+This reads `output/validation_results.csv` and produces `output/fig7_hardware_validation.png`, a 2x2 comparison chart showing:
+- (a) Network lifetime (HND): hardware vs simulation
+- (b) Energy efficiency: hardware vs simulation
+- (c) Delivery ratio: hardware vs simulation
+- (d) Jain fairness index: hardware vs simulation
 
 ### Figure Output
 
@@ -99,4 +97,4 @@ Energy consumption is measured on the testbed using the CC2420 radio parameters:
 
 ## Relationship to Simulation
 
-The hardware results serve as validation for the simulation engine in `WSN-Experiment/`. The `generate_figure.py` script directly compares the 15-node hardware measurements against the 15-node simulation predictions to quantify the simulation's fidelity. The close agreement between hardware and simulation results (within measurement error) confirms the validity of the simulation model used throughout the paper.
+The hardware results serve as validation for the simulation engine in `WSN-Experiment/`. The `generate_figure.py` script directly compares the 15-node hardware measurements against the 15-node simulation predictions to quantify the simulation's fidelity. The close agreement between hardware and simulation results (within measurement error) confirms the validity of the simulation model.

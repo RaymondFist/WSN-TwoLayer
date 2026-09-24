@@ -2,9 +2,8 @@
 /*
  * WSN Two-Layer Distributed Optimization - NS-3.35 Simulation
  *
- * Implements the two-layer optimization framework from:
- *   "Energy-Efficient Distributed Optimization Framework for
- *    Wireless Sensor Networks: Theory and Practice"
+ * Implements the two-layer optimization framework: per-node projected
+ * gradient descent coordinated through doubly-stochastic consensus.
  *
  * Uses NS-3.35 lr-wpan (802.15.4) with realistic PHY/MAC,
  * TelosB CC2420 energy model, and log-distance path loss.

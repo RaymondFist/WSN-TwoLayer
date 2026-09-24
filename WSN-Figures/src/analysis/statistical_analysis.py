@@ -65,7 +65,7 @@ class StatisticalAnalyzer:
                           metric: str = 'HND',
                           scale: Optional[int] = None) -> Dict:
         """
-        Comprehensive comparison between two protocols.
+        Compare two protocols on a given metric.
         Returns dict with improvement_pct, p_value, cohens_d, confidence_intervals.
         """
         df = self.hnd

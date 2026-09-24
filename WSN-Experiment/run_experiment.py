@@ -502,7 +502,7 @@ class TwoLayerOrchestrator:
         # +1 accounts for the warm-up round before the main loop
         num_rounds = max(1, getattr(self, 'converged_at', self.config.max_iterations)) + 1
         if alive == 0:
-            # All nodes exhausted — use total consumption across all nodes
+            # All nodes exhausted - use total consumption across all nodes
             total_consumed = sum(
                 max(0.0, n.energy_initial - n.energy_residual) for n in self.nodes
             )
@@ -567,7 +567,7 @@ class BaselineProtocol:
                 total_consumed += consumed
                 alive += 1
         if alive == 0:
-            # All nodes exhausted — use total consumption across all nodes
+            # All nodes exhausted - use total consumption across all nodes
             total_consumed = sum(
                 max(0.0, n.energy_initial - n.energy_residual) for n in self.nodes
             )

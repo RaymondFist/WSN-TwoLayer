@@ -1,8 +1,8 @@
 """
-Figure generation for WSN Two-Layer Optimization paper.
+Figure generation for WSN Two-Layer Optimization.
 
-Generates all 6 figures from real experiment data.
-Output: 300 DPI, grayscale-compatible, IEEE column width.
+Generates all 6 figures from the experiment data.
+Output: 300 DPI, grayscale-compatible, single- and double-column widths.
 
 Figures:
   Fig 1: Network lifetime (HND) comparison across scales
@@ -194,7 +194,7 @@ def fig3_load_balancing(data_root=None):
                 linewidth=1.0 if protocol == 'Ours' else 0.7,
                 label=protocol)
     
-    # Horizontal line at 0.90 (paper's target)
+    # Horizontal line at the 0.90 fairness target
     ax.axhline(y=0.90, color='black', linestyle=':', linewidth=0.5, alpha=0.5)
     ax.text(ax.get_xlim()[1] * 0.95, 0.905, 'Target 0.90',
             fontsize=6, ha='right', va='bottom', alpha=0.5)
@@ -369,7 +369,7 @@ def fig6_scalability(data_root=None):
     
     # Subplot (b): RAM footprint
     central_ram = [s * 0.05 for s in scales]  # Centralized stores full state
-    ours_ram = [4.2 for _ in scales]          # Constant 4.2 kB (from paper)
+    ours_ram = [4.2 for _ in scales]          # Constant per-node RAM footprint
     limit_ram = [10.0 for _ in scales]        # TelosB limit
     
     ax2.plot(scales, central_ram, 's-', color='#666666', linewidth=1.0,

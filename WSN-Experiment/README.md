@@ -1,8 +1,8 @@
 # WSN Two-Layer Optimization - Experiment Engine
 
-Implements the two-layer distributed optimization framework from the paper
-"Energy-Efficient Distributed Optimization Framework for Wireless Sensor
-Networks: Theory and Practice."
+Implements the two-layer distributed optimization framework: per-node projected
+gradient descent coordinated through doubly-stochastic consensus, with online
+adaptive weight tuning.
 
 ## Architecture
 

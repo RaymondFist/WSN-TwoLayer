@@ -1,8 +1,6 @@
 # WSN Two-Layer Optimization - Figures & Analysis Pipeline
 
-Generates publication-quality figures and tables from experiment data for the paper
-"Energy-Efficient Distributed Optimization Framework for Wireless Sensor
-Networks: Theory and Practice."
+Generates figures and tables from the experiment data.
 
 ## Architecture
 
@@ -78,7 +76,7 @@ python src/run_pipeline.py --data-dir ../WSN-Experiment/output/
 
 ## Output
 
-### Figures (300 DPI, grayscale-compatible, IEEE column width)
+### Figures (300 DPI, grayscale-compatible)
 
 | Figure | Description | Source Function |
 |--------|-------------|-----------------|
@@ -115,7 +113,7 @@ All figures use:
 - Resolution: 300 DPI
 - Grayscale-compatible color palette
 - Distinct line styles and markers per protocol
-- IEEE column width (3.5 inch for single, 7 inch for double)
+- Single-column (3.5 inch) and double-column (7 inch) widths
 
 ## Dependencies
 

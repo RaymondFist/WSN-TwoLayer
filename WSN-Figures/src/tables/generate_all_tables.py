@@ -1,8 +1,8 @@
 """
-Table generation for WSN Two-Layer Optimization paper.
+Table generation for WSN Two-Layer Optimization.
 
 Generates 3 tables from experiment data:
-  Table 1: Comprehensive Performance Comparison
+  Table 1: Performance Comparison
   Table 2: Algorithm Characteristics
   Table 3: Ablation Study Results
 """
@@ -28,7 +28,7 @@ def _get_parser(data_root=None):
 
 
 def table1_performance_comparison(data_root=None):
-    """Table 1: Comprehensive Performance Comparison (300-node)."""
+    """Table 1: Performance Comparison (300-node)."""
     print("Generating Table 1: Performance Comparison...")
     p = _get_parser(data_root)
     df = p.load_hnd_data(scale=300)
@@ -85,7 +85,7 @@ def table2_algorithm_characteristics():
     print("Generating Table 2: Algorithm Characteristics...")
     
     data = {
-        'Method': ['Centralized [3]', 'LEACH', 'HEED', 'PEGASIS', 'DeepSensor [13]', 'FL-Energy [11]', 'Ours'],
+        'Method': ['Centralized', 'LEACH', 'HEED', 'PEGASIS', 'DeepSensor', 'FL-Energy', 'Ours'],
         'Distributed': ['No', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes'],
         'Convergence Guarantee': ['Yes (optimal)', 'No', 'No', 'No', 'No (empirical)', 'No (empirical)', 'Yes (O(1/√k))'],
         'Per-Node Complexity': ['O(N²)', 'O(N)', 'O(N)', 'O(N)', 'O(N·d)', 'O(N·d)', 'O(|N_i|+d)'],
