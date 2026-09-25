@@ -134,11 +134,3 @@ Root-level:
 
 - Python 3.8+ (standard library only)
 - No external packages required
-
-## Logging
-
-The experiment runner uses `scripts/experiment_logger.py` to produce:
-- Timestamped log files in `output/logs/run_experiment_YYYYMMDD_HHMMSS.log`
-- JSON summary files in `output/logs/run_experiment_YYYYMMDD_HHMMSS.json`
-
-Use `scripts/analyze_logs.py` to parse and inspect these logs.

@@ -1,5 +1,3 @@
-# WSN-TwoLayer: Two-Layer Distributed Optimization Framework for Wireless Sensor Networks
-
 ## Project Overview
 
 This repository implements a two-layer distributed optimization framework for wireless sensor network energy management, together with the tooling required to reproduce the experimental results. The framework decomposes the global WSN energy management problem into per-node projected gradient descent (Layer 1) coordinated through doubly-stochastic consensus (Layer 2), with online adaptive weight tuning based on residual energy and delivery ratio.

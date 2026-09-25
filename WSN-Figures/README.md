@@ -123,9 +123,3 @@ All figures use:
 | numpy | 1.24.0 |
 | pandas | 2.0.0 |
 | scipy | 1.10.0 |
-
-## Logging
-
-The pipeline uses `src/pipeline_logger.py` to produce:
-- Timestamped log files in `output/logs/run_pipeline_YYYYMMDD_HHMMSS.log`
-- JSON summary files in `output/logs/run_pipeline_YYYYMMDD_HHMMSS.json`
