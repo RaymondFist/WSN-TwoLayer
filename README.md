@@ -24,14 +24,14 @@ WSN-TwoLayer/
 │   │   ├── data_parser.py   # Reads experiment CSV data
 │   │   ├── paths.py         # Centralized path management
 │   │   ├── analysis/        # Statistical analysis (t-test, Cohen's d, CI)
-│   │   ├── figures/         # Figure generation (Fig 1-6)
+│   │   ├── figures/         # Figure generation (Fig 2-7)
 │   │   └── tables/          # Table generation (Table 1-3)
 │   ├── requirements.txt     # Python dependencies
 │   └── output/              # Generated figures (PNG) and tables (CSV)
 │
 ├── WSN-Hardware/            # TelosB/TinyOS hardware validation
 │   ├── generate_figure.py   # Hardware vs simulation comparison chart
-│   └── output/              # Hardware measurement data + Fig 7
+│   └── output/              # Hardware measurements (Table 4) + Fig 8
 │
 ├── deploy.sh                # Cloud server deployment script
 ├── run_all.sh               # Unified execution pipeline (deploy → experiment → figures)
@@ -49,7 +49,7 @@ Algorithm runs ──→ CSV output ──→ Data parser ──→ Analysis    
  30 runs)         jain_fairness,  Statistical     Figures (PNG)   results.csv)
                   ablation)       analysis        Tables (CSV)          ↓
                                   (p-values,      Statistical     Hardware figure
-                                   Cohen's d,     report          (fig7)
+                                   Cohen's d,     report          (fig8)
                                    CI, rate)                      (generate_figure.py)
 ```
 
@@ -128,18 +128,20 @@ All experiments use real TelosB node parameters:
 - `ablation_study.csv`: Ablation study results (6 variants)
 
 ### Figures (PNG, 300 DPI)
-- `fig1_network_lifetime.png`: HND comparison across scales
-- `fig2_energy_consumption.png`: Energy consumption per round
-- `fig3_load_balancing.png`: Jain's fairness over time
-- `fig4_delivery_ratio.png`: Delivery ratio vs network density
-- `fig5_convergence_rate.png`: Convergence rate analysis
-- `fig6_scalability.png`: Scalability (messages + RAM)
-- `fig7_hardware_validation.png`: TelosB hardware validation
+- `fig1_architecture.png`: Two-layer architecture schematic
+- `fig2_network_lifetime.png`: HND comparison across scales
+- `fig3_energy_consumption.png`: Energy consumption per round
+- `fig4_load_balancing.png`: Jain's fairness over time
+- `fig5_delivery_ratio.png`: Delivery ratio vs network density
+- `fig6_convergence.png`: Convergence behaviour (error, gradient norm, energy)
+- `fig7_multi_scale_hnd.png`: Multi-scale HND (Ours vs DRL-based)
+- `fig8_hardware_validation.png`: TelosB hardware validation
 
 ### Tables (CSV)
 - `table1_performance_comparison.csv`: 300-node performance comparison
 - `table2_algorithm_characteristics.csv`: Algorithm characteristics
 - `table3_ablation_study.csv`: Ablation study results
+- `WSN-Hardware/output/validation_results.csv`: Hardware validation results (Table 4)
 
 ### Reports
 - `statistical_report.txt`: p-values, Cohen's d, confidence intervals, convergence rate

@@ -8,11 +8,11 @@ TelosB/TinyOS hardware validation of the two-layer optimization framework.
 WSN-Hardware/
 ├── generate_figure.py          # Hardware vs simulation comparison chart
 ├── output/
-│   ├── validation_results.csv  # Hardware measurement results (3 protocols)
+│   ├── validation_results.csv  # Hardware measurements backing Table 4 (3 protocols)
 │   ├── convergence_data.csv    # Convergence data from hardware runs
 │   ├── delivery_ratio.csv      # Delivery ratio measurements
 │   ├── energy_timeseries.csv   # Energy consumption over time
-│   ├── fig7_hardware_validation.png  # Generated Fig 7 (300 DPI)
+│   ├── fig8_hardware_validation.png  # Generated Fig 8 (300 DPI)
 │   └── run_metadata.json       # Testbed configuration metadata
 └── README.md
 ```
@@ -44,9 +44,9 @@ This module validates the two-layer optimization framework on a real TelosB test
 
 | Protocol | Type | HND (hardware) | Delivery Ratio |
 |----------|------|----------------|----------------|
-| LEACH | Hierarchical clustering | 398.5 ± 15.2 | 0.571 ± 0.018 |
-| HEED | Hybrid clustering | 412.3 ± 12.8 | 0.402 ± 0.015 |
-| Ours | Two-layer optimization | 687.2 ± 28.4 | 0.726 ± 0.032 |
+| LEACH | Hierarchical clustering | 398.5 ± 15.2 | 0.573 ± 0.011 |
+| HEED | Hybrid clustering | 412.3 ± 12.8 | 0.403 ± 0.010 |
+| Ours | Two-layer optimization | 687.2 ± 28.4 | 0.729 ± 0.012 |
 
 ## Usage
 
@@ -57,7 +57,7 @@ cd WSN-Hardware
 python generate_figure.py
 ```
 
-This reads `output/validation_results.csv` and produces `output/fig7_hardware_validation.png`, a 2x2 comparison chart showing:
+This reads `output/validation_results.csv` and produces `output/fig8_hardware_validation.png`, a 2x2 comparison chart showing:
 - (a) Network lifetime (HND): hardware vs simulation
 - (b) Energy efficiency: hardware vs simulation
 - (c) Delivery ratio: hardware vs simulation
@@ -71,7 +71,7 @@ The figure is saved at 300 DPI with error bars (standard deviation over 10 runs)
 
 | File | Description |
 |------|-------------|
-| `validation_results.csv` | Aggregated results: HND, energy efficiency, delivery ratio, convergence time, Jain fairness, RAM, ROM |
+| `validation_results.csv` | Aggregated hardware validation results (HND, energy efficiency, delivery ratio, convergence time, Jain fairness, RAM, ROM) |
 | `convergence_data.csv` | Per-round convergence metrics from hardware |
 | `delivery_ratio.csv` | Per-run delivery ratio measurements |
 | `energy_timeseries.csv` | Energy consumption time series |

@@ -108,7 +108,8 @@ def table3_ablation_study(data_root=None):
     df = p.load_ablation_data()
     
     if not df.empty:
-        df['HND_Δ (%)'] = ['-'] + [f'{(df.iloc[0]["HND_mean"] - df.iloc[i]["HND_mean"]) / df.iloc[0]["HND_mean"] * 100:.1f}' for i in range(1, len(df))]
+        base = df.iloc[0]["HND_mean"]
+        df['HND_Δ (%)'] = ['N/A'] + [f'{(df.iloc[i]["HND_mean"] - base) / base * 100:+.2f}' for i in range(1, len(df))]
     
     df.to_csv(table_path('table3_ablation_study.csv'), index=False)
     print(f"  Done: table3_ablation_study.csv")

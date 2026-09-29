@@ -94,7 +94,7 @@ ax.grid(axis='y', alpha=0.3)
 ax.set_ylim(0, 1.05)
 
 plt.tight_layout()
-fig_path = os.path.join(OUTPUT_DIR, 'fig7_hardware_validation.png')
+fig_path = os.path.join(OUTPUT_DIR, 'fig8_hardware_validation.png')
 plt.savefig(fig_path, dpi=300, bbox_inches='tight')
 plt.close()
 print(f'Figure saved: {fig_path}')

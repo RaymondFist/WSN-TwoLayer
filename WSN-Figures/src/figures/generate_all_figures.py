@@ -1,16 +1,16 @@
 """
 Figure generation for WSN Two-Layer Optimization.
 
-Generates all 6 figures from the experiment data.
+Generates Figs. 2-7 from the experiment data.
 Output: 300 DPI, grayscale-compatible, single- and double-column widths.
 
 Figures:
-  Fig 1: Network lifetime (HND) comparison across scales
-  Fig 2: Energy consumption per round
-  Fig 3: Load balancing (Jain's fairness) over time
-  Fig 4: Packet delivery ratio vs network density
-  Fig 5: Convergence rate analysis
-  Fig 6: Scalability analysis (control messages, RAM)
+  Fig 2: Network lifetime (HND) comparison across scales
+  Fig 3: Energy consumption per round
+  Fig 4: Load balancing (Jain's fairness) over time
+  Fig 5: Packet delivery ratio vs network density
+  Fig 6: Convergence behaviour (consensus error, gradient norm, normalized energy)
+  Fig 7: Multi-scale HND: Ours against the DRL-based baseline
 """
 import os
 import sys
@@ -68,6 +68,8 @@ LINESTYLES = {
     'Ours': '-',
 }
 PROTOCOL_ORDER = ['LEACH', 'HEED', 'PEGASIS', 'DeepSensor', 'FL-Energy', 'Ours']
+# Legend label for the DRL baseline, which is reference [10] in the paper
+LABELS = {'DeepSensor': 'DRL-based[10]'}
 
 _parser = None
 
@@ -80,9 +82,9 @@ def _get_parser(data_root=None):
     return _parser
 
 
-def fig1_network_lifetime(data_root=None):
-    """Fig 1: Network lifetime (HND) comparison across network scales."""
-    print("Generating Fig 1: Network lifetime...")
+def fig2_network_lifetime(data_root=None):
+    """Fig 2: Network lifetime (HND) comparison across network scales."""
+    print("Generating Fig 2: Network lifetime...")
     p = _get_parser(data_root)
     df = p.load_hnd_data()
     
@@ -104,7 +106,7 @@ def fig1_network_lifetime(data_root=None):
             stds.append(subset['HND'].std())
         
         offset = width * multiplier
-        bars = ax.bar(x + offset, means, width, label=protocol,
+        bars = ax.bar(x + offset, means, width, label=LABELS.get(protocol, protocol),
                       color=COLORS.get(protocol, '#888888'),
                       edgecolor='black', linewidth=0.3,
                       yerr=stds, capsize=2, error_kw={'linewidth': 0.5})
@@ -131,14 +133,14 @@ def fig1_network_lifetime(data_root=None):
                     fontsize=7, ha='center', fontweight='bold')
     
     plt.tight_layout()
-    fig.savefig(figure_path('fig1_network_lifetime.png'))
+    fig.savefig(figure_path('fig2_network_lifetime.png'))
     plt.close()
-    print("  Done: fig1_network_lifetime.png")
+    print("  Done: fig2_network_lifetime.png")
 
 
-def fig2_energy_consumption(data_root=None):
-    """Fig 2: Energy consumption per round."""
-    print("Generating Fig 2: Energy consumption...")
+def fig3_energy_consumption(data_root=None):
+    """Fig 3: Energy consumption per round."""
+    print("Generating Fig 3: Energy consumption...")
     p = _get_parser(data_root)
     df = p.load_energy_timeseries()
     
@@ -160,7 +162,7 @@ def fig2_energy_consumption(data_root=None):
                 color=COLORS.get(protocol, '#888888'),
                 linestyle=LINESTYLES.get(protocol, '-'),
                 linewidth=1.0 if protocol == 'Ours' else 0.7,
-                label=protocol)
+                label=LABELS.get(protocol, protocol))
     
     ax.set_xlabel('Simulation Round')
     ax.set_ylabel('Normalized Energy')
@@ -171,14 +173,14 @@ def fig2_energy_consumption(data_root=None):
     ax.set_ylim(bottom=0)
     
     plt.tight_layout()
-    fig.savefig(figure_path('fig2_energy_consumption.png'))
+    fig.savefig(figure_path('fig3_energy_consumption.png'))
     plt.close()
-    print("  Done: fig2_energy_consumption.png")
+    print("  Done: fig3_energy_consumption.png")
 
 
-def fig3_load_balancing(data_root=None):
-    """Fig 3: Load balancing (Jain's fairness index) over time."""
-    print("Generating Fig 3: Load balancing...")
+def fig4_load_balancing(data_root=None):
+    """Fig 4: Load balancing (Jain's fairness index) over time."""
+    print("Generating Fig 4: Load balancing...")
     p = _get_parser(data_root)
     df = p.load_fairness_data()
     
@@ -192,7 +194,7 @@ def fig3_load_balancing(data_root=None):
                 color=COLORS.get(protocol, '#888888'),
                 linestyle=LINESTYLES.get(protocol, '-'),
                 linewidth=1.0 if protocol == 'Ours' else 0.7,
-                label=protocol)
+                label=LABELS.get(protocol, protocol))
     
     # Horizontal line at the 0.90 fairness target
     ax.axhline(y=0.90, color='black', linestyle=':', linewidth=0.5, alpha=0.5)
@@ -207,14 +209,14 @@ def fig3_load_balancing(data_root=None):
     ax.grid(alpha=0.3, linestyle=':')
     
     plt.tight_layout()
-    fig.savefig(figure_path('fig3_load_balancing.png'))
+    fig.savefig(figure_path('fig4_load_balancing.png'))
     plt.close()
-    print("  Done: fig3_load_balancing.png")
+    print("  Done: fig4_load_balancing.png")
 
 
-def fig4_delivery_ratio(data_root=None):
-    """Fig 4: Packet delivery ratio vs network density."""
-    print("Generating Fig 4: Delivery ratio...")
+def fig5_delivery_ratio(data_root=None):
+    """Fig 5: Packet delivery ratio vs network density."""
+    print("Generating Fig 5: Delivery ratio...")
     p = _get_parser(data_root)
     df = p.load_hnd_data()
     
@@ -233,7 +235,7 @@ def fig4_delivery_ratio(data_root=None):
         ax.plot(scales, means, marker=MARKERS.get(protocol, 'o'),
                 color=COLORS.get(protocol, '#888888'),
                 linestyle=LINESTYLES.get(protocol, '-'),
-                linewidth=1.0, markersize=4, label=protocol)
+                linewidth=1.0, markersize=4, label=LABELS.get(protocol, protocol))
     
     ax.set_xlabel('Network Scale (nodes)')
     ax.set_ylabel('Delivery Ratio')
@@ -243,151 +245,99 @@ def fig4_delivery_ratio(data_root=None):
     ax.grid(alpha=0.3, linestyle=':')
     
     plt.tight_layout()
-    fig.savefig(figure_path('fig4_delivery_ratio.png'))
+    fig.savefig(figure_path('fig5_delivery_ratio.png'))
     plt.close()
-    print("  Done: fig4_delivery_ratio.png")
+    print("  Done: fig5_delivery_ratio.png")
 
 
-def fig5_convergence_rate(data_root=None):
-    """Fig 5: Convergence rate analysis using gradient norm (O(1/√k) guarantee)."""
-    print("Generating Fig 5: Convergence rate...")
+def fig6_convergence(data_root=None):
+    """Fig 6: Convergence behaviour on the 300-node benchmark.
+
+    Three panels: consensus error, gradient norm against the O(1/√k) reference,
+    and normalized energy over the control rounds.
+    """
+    print("Generating Fig 6: Convergence...")
     p = _get_parser(data_root)
+    conv_df = p.load_convergence_data()
+    ours = conv_df[conv_df['Protocol'] == 'Ours'].groupby('Round').mean(numeric_only=True)
+    rounds = ours.index.values
     
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7, 2.5))
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(7.2, 2.4))
     
-    # Try loading convergence data first; fall back to energy timeseries
-    try:
-        conv_df = p.load_convergence_data()
-        has_conv = not conv_df.empty and 'Ours' in conv_df['Protocol'].unique()
-    except Exception:
-        conv_df = pd.DataFrame()
-        has_conv = False
+    # (a) Consensus error
+    ax1.plot(rounds, ours['ConsensusError'].values, 'k-', linewidth=0.9)
+    ax1.set_ylabel('Consensus Error')
+    ax1.set_title('(a) Consensus Error', fontsize=9)
     
-    # Subplot (a): Gradient norm convergence
-    if has_conv:
-        ours = conv_df[conv_df['Protocol'] == 'Ours']
-        grad_norm = ours.groupby('Round')['GradientNorm'].mean()
-        
-        if len(grad_norm) > 200:
-            step = max(1, len(grad_norm) // 200)
-            grad_norm = grad_norm.iloc[::step]
-        
-        ax1.plot(grad_norm.index, grad_norm.values, 'k-', linewidth=1.0, label='Ours')
-        
-        # Theoretical bound: O(1/sqrt(k))
-        if len(grad_norm) > 0:
-            initial = grad_norm.iloc[0]
-            rounds = grad_norm.index.values[:len(grad_norm)]
-            theoretical = initial / np.sqrt(rounds + 1)
-            ax1.plot(rounds, theoretical, 'k--', linewidth=0.5, label='O(1/√k) bound')
-        
-        ax1.set_ylabel('Gradient Norm')
-    else:
-        # Fallback: use energy timeseries
-        df = p.load_energy_timeseries()
-        for protocol in PROTOCOL_ORDER:
-            if protocol not in df['Protocol'].unique():
-                continue
-            subset = df[df['Protocol'] == protocol]
-            energy_by_round = subset.groupby('Round')['Normalized_Energy'].mean()
-            if len(energy_by_round) > 200:
-                step = max(1, len(energy_by_round) // 200)
-                energy_by_round = energy_by_round.iloc[::step]
-            ax1.plot(energy_by_round.index, energy_by_round.values,
-                     color=COLORS.get(protocol, '#888888'),
-                     linestyle=LINESTYLES.get(protocol, '-'),
-                     linewidth=1.0 if protocol == 'Ours' else 0.7,
-                     label=protocol)
-        ax1.set_ylabel('Normalized Energy')
+    # (b) Gradient norm against the theoretical O(1/√k) bound
+    grad_norm = ours['GradientNorm'].values
+    ax2.plot(rounds, grad_norm, 'k-', linewidth=0.9, label='Gradient Norm')
+    ax2.plot(rounds, grad_norm[0] / np.sqrt(rounds + 1), 'k:', linewidth=0.6,
+             label='O(1/√k) bound')
+    ax2.set_ylabel('Gradient Norm')
+    ax2.set_title('(b) Gradient Norm', fontsize=9)
+    ax2.legend(fontsize=6, frameon=True, fancybox=False, edgecolor='black')
     
-    ax1.set_xlabel('Iteration k')
-    ax1.legend(loc='upper right', fontsize=6, ncol=2)
-    ax1.grid(alpha=0.3, linestyle=':')
-    ax1.set_title('(a) Convergence Curves', fontsize=9)
+    # (c) Normalized energy
+    ax3.plot(rounds, ours['Normalized_Energy'].values, 'k-', linewidth=0.9)
+    ax3.set_ylabel('Normalized Energy')
+    ax3.set_title('(c) Normalized Energy', fontsize=9)
     
-    # Subplot (b): Log-log plot to verify O(1/√k) rate
-    if has_conv:
-        ours = conv_df[conv_df['Protocol'] == 'Ours']
-        grad_norm = ours.groupby('Round')['GradientNorm'].mean()
-        # Filter out near-zero values for log scale
-        valid = grad_norm.values > 1e-10
-        if valid.sum() >= 10:
-            k_vals = grad_norm.index[valid].values + 1
-            e_vals = grad_norm.values[valid]
-            
-            log_k = np.log(k_vals)
-            log_e = np.log(e_vals)
-            
-            ax2.scatter(log_k, log_e, s=2, alpha=0.5, color='black', label='Gradient Norm')
-            
-            slope, intercept = np.polyfit(log_k, log_e, 1)
-            # Theoretical O(1/√k) reference line
-            ax2.plot(log_k, slope * log_k + intercept, 'r--', linewidth=0.8,
-                     label=f'Fitted slope = {slope:.3f}')
-            ax2.plot(log_k, -0.5 * log_k + log_e[0], 'g:', linewidth=0.8,
-                     label='O(1/√k) reference')
-            
-            ax2.set_xlabel('log(k)')
-            ax2.set_ylabel('log(Gradient Norm)')
-            ax2.legend(fontsize=7)
-            ax2.grid(alpha=0.3, linestyle=':')
-            ax2.set_title('(b) Convergence Rate Estimation', fontsize=9)
-    else:
-        ax2.text(0.5, 0.5, 'No convergence data', transform=ax2.transAxes,
-                 ha='center', va='center', fontsize=9)
-        ax2.set_title('(b) Convergence Rate Estimation', fontsize=9)
+    for ax in (ax1, ax2, ax3):
+        ax.set_xlabel('Round k')
+        ax.grid(alpha=0.3, linestyle=':')
+        ax.set_xlim(left=0)
     
     plt.tight_layout()
-    fig.savefig(figure_path('fig5_convergence_rate.png'))
+    fig.savefig(figure_path('fig6_convergence.png'))
     plt.close()
-    print("  Done: fig5_convergence_rate.png")
+    print("  Done: fig6_convergence.png")
 
 
-def fig6_scalability(data_root=None):
-    """Fig 6: Scalability analysis."""
-    print("Generating Fig 6: Scalability...")
+def fig7_multi_scale_hnd(data_root=None):
+    """Fig 7: Multi-scale HND performance.
+
+    Bars give the HND of our framework and of the DRL-based baseline at the
+    four deployment scales, annotated with the relative gain at each scale.
+    """
+    print("Generating Fig 7: Multi-scale HND...")
     p = _get_parser(data_root)
     df = p.load_hnd_data()
     
     scales = sorted(df['Scale'].unique())
     
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7, 2.5))
+    fig, ax = plt.subplots(figsize=(3.5, 2.5))
     
-    # Subplot (a): Control messages per round
-    central_msg = [s * s for s in scales]  # O(N^2) for centralized
-    ours_msg = [s * 6 for s in scales]     # O(N) one-hop (avg degree ~6)
+    x = np.arange(len(scales))
+    width = 0.35
+    drl, ours = [], []
+    for scale in scales:
+        drl.append(df[(df['Protocol'] == 'DeepSensor') & (df['Scale'] == scale)]['HND'].mean())
+        ours.append(df[(df['Protocol'] == 'Ours') & (df['Scale'] == scale)]['HND'].mean())
     
-    ax1.plot(scales, central_msg, 's-', color='#666666', linewidth=1.0,
-             markersize=4, label='Centralized O(N²)')
-    ax1.plot(scales, ours_msg, 'o-', color='black', linewidth=1.0,
-             markersize=4, label='Ours O(N)')
-    ax1.set_xlabel('Network Size N')
-    ax1.set_ylabel('Control Messages/Round')
-    ax1.legend(fontsize=7, frameon=True, fancybox=False, edgecolor='black')
-    ax1.grid(alpha=0.3, linestyle=':')
-    ax1.set_title('(a) Control Messages', fontsize=9)
+    ax.bar(x - width / 2, drl, width, label=LABELS['DeepSensor'], color='#BBBBBB',
+           edgecolor='black', linewidth=0.3)
+    ax.bar(x + width / 2, ours, width, label='Ours', color='#000000',
+           edgecolor='black', linewidth=0.3)
+    for xi, d, o in zip(x, drl, ours):
+        if d > 0:
+            ax.annotate('+%.1f%%' % ((o - d) / d * 100.0), xy=(xi, o),
+                        xytext=(0, 4), textcoords='offset points',
+                        fontsize=7, ha='center', fontweight='bold')
     
-    # Subplot (b): RAM footprint
-    central_ram = [s * 0.05 for s in scales]  # Centralized stores full state
-    ours_ram = [4.2 for _ in scales]          # Constant per-node RAM footprint
-    limit_ram = [10.0 for _ in scales]        # TelosB limit
-    
-    ax2.plot(scales, central_ram, 's-', color='#666666', linewidth=1.0,
-             markersize=4, label='Centralized')
-    ax2.plot(scales, ours_ram, 'o-', color='black', linewidth=1.0,
-             markersize=4, label='Ours (4.2 kB)')
-    ax2.axhline(y=10.0, color='red', linestyle=':', linewidth=0.5,
-                label='TelosB limit (10 kB)')
-    ax2.set_xlabel('Network Size N')
-    ax2.set_ylabel('RAM (kB)')
-    ax2.legend(fontsize=7, frameon=True, fancybox=False, edgecolor='black')
-    ax2.grid(alpha=0.3, linestyle=':')
-    ax2.set_title('(b) RAM Footprint', fontsize=9)
+    ax.set_xlabel('Network Scale (nodes)')
+    ax.set_ylabel('HND (rounds)')
+    ax.set_xticks(x)
+    ax.set_xticklabels(scales)
+    ax.legend(loc='lower left', bbox_to_anchor=(0.0, 1.01), ncol=2,
+              frameon=False, fontsize=7)
+    ax.grid(axis='y', alpha=0.3, linestyle=':')
+    ax.set_ylim(bottom=0)
     
     plt.tight_layout()
-    fig.savefig(figure_path('fig6_scalability.png'))
+    fig.savefig(figure_path('fig7_multi_scale_hnd.png'))
     plt.close()
-    print("  Done: fig6_scalability.png")
+    print("  Done: fig7_multi_scale_hnd.png")
 
 
 def generate_all(data_root=None):
@@ -398,18 +348,18 @@ def generate_all(data_root=None):
     
     fig_paths = {}
     try:
-        fig1_network_lifetime(data_root)
-        fig_paths['fig1_network_lifetime'] = str(figure_path('fig1_network_lifetime.png'))
-        fig2_energy_consumption(data_root)
-        fig_paths['fig2_energy_consumption'] = str(figure_path('fig2_energy_consumption.png'))
-        fig3_load_balancing(data_root)
-        fig_paths['fig3_load_balancing'] = str(figure_path('fig3_load_balancing.png'))
-        fig4_delivery_ratio(data_root)
-        fig_paths['fig4_delivery_ratio'] = str(figure_path('fig4_delivery_ratio.png'))
-        fig5_convergence_rate(data_root)
-        fig_paths['fig5_convergence_rate'] = str(figure_path('fig5_convergence_rate.png'))
-        fig6_scalability(data_root)
-        fig_paths['fig6_scalability'] = str(figure_path('fig6_scalability.png'))
+        fig2_network_lifetime(data_root)
+        fig_paths['fig2_network_lifetime'] = str(figure_path('fig2_network_lifetime.png'))
+        fig3_energy_consumption(data_root)
+        fig_paths['fig3_energy_consumption'] = str(figure_path('fig3_energy_consumption.png'))
+        fig4_load_balancing(data_root)
+        fig_paths['fig4_load_balancing'] = str(figure_path('fig4_load_balancing.png'))
+        fig5_delivery_ratio(data_root)
+        fig_paths['fig5_delivery_ratio'] = str(figure_path('fig5_delivery_ratio.png'))
+        fig6_convergence(data_root)
+        fig_paths['fig6_convergence'] = str(figure_path('fig6_convergence.png'))
+        fig7_multi_scale_hnd(data_root)
+        fig_paths['fig7_multi_scale_hnd'] = str(figure_path('fig7_multi_scale_hnd.png'))
         print(f"\nAll figures saved to: {figure_path('')}")
     except Exception as e:
         print(f"\nError: {e}")

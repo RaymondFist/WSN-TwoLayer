@@ -1,7 +1,7 @@
 {
   "experiment": "WSN Two-Layer Distributed Optimization Framework",
   "version": "1.0.0",
-  "simulator": "NS-3.35",
+  "simulator": "Standalone (Python port of C++ wsn-experiment)",
   "hardware_model": "TelosB (MSP430 @ 8MHz, CC2420 radio)",
   "parameters": {
     "p_min_dBm": -25.0,

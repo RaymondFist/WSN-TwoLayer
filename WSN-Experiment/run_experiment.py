@@ -1009,6 +1009,36 @@ def run_ablation(config: SimConfig, data_logger: DataLogger, exp_logger=None):
         exp_logger.info("  Ablation study complete")
 
 
+def load_default_config():
+    """Load simulation parameters from config/default.json."""
+    path = Path(__file__).resolve().parent / 'config' / 'default.json'
+    with open(path, 'r') as f:
+        cfg = json.load(f)
+    p, n, e, r = cfg['parameters'], cfg['network'], cfg['energy_model'], cfg['reproducibility']
+    return {
+        'num_runs': r['num_runs'],
+        'random_seed': r['seed'],
+        'area_width': n['area_width_m'],
+        'area_height': n['area_height_m'],
+        'comm_range': n['comm_range_m'],
+        'eta_0': p['eta_0'],
+        'delta': p['delta'],
+        'p_min_dBm': p['p_min_dBm'],
+        'p_max_dBm': p['p_max_dBm'],
+        'tau_min': p['tau_min'],
+        'tau_th': p['tau_th'],
+        'T_adapt': p['T_adapt'],
+        'tx_current_mA': e['tx_current_mA'],
+        'rx_current_mA': e['rx_current_mA'],
+        'idle_current_mA': e['idle_current_mA'],
+        'sleep_current_mA': e['sleep_current_mA'],
+        'voltage': e['voltage'],
+        'max_iterations': p['K_max'],
+        'convergence_threshold': p['convergence_threshold'],
+        'consensus_sigma': p['consensus_sigma'],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description='WSN Two-Layer Experiment Runner')
     parser.add_argument('--scales', type=str, default='100,200,300,500')
@@ -1021,6 +1051,7 @@ def main():
     
     scales = [int(s.strip()) for s in args.scales.split(',')]
     protocols = args.protocols.split(',') if args.protocols else list(PROTOCOLS.keys())
+    base = load_default_config()
     
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1064,7 +1095,8 @@ def main():
     try:
         if args.ablation:
             exp_logger.log_section("Ablation Study Mode")
-            config = SimConfig(num_nodes=300, num_runs=args.runs, random_seed=args.seed)
+            config = SimConfig(**{**base, 'num_nodes': 300, 'num_runs': args.runs,
+                                  'random_seed': args.seed})
             data_logger = DataLogger(str(output_dir))
             t0 = datetime.now()
             run_ablation(config, data_logger, exp_logger)
@@ -1074,7 +1106,8 @@ def main():
             for scale in scales:
                 scale_dir = output_dir / f"scale_{scale}"
                 data_logger = DataLogger(str(scale_dir))
-                config = SimConfig(num_nodes=scale, num_runs=args.runs, random_seed=args.seed + scale)
+                config = SimConfig(**{**base, 'num_nodes': scale, 'num_runs': args.runs,
+                                      'random_seed': args.seed + scale})
                 
                 exp_logger.log_section(f"Scale: {scale} nodes")
                 t0 = datetime.now()

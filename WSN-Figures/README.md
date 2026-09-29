@@ -18,18 +18,19 @@ WSN-Figures/
 │   │   └── statistical_analysis.py      # p-values, Cohen's d, CI, convergence rate
 │   ├── figures/
 │   │   ├── __init__.py
-│   │   └── generate_all_figures.py      # Fig 1-6 generation
+│   │   └── generate_all_figures.py      # Fig 2-7 generation
 │   └── tables/
 │       ├── __init__.py
 │       └── generate_all_tables.py       # Table 1-3 generation
 ├── output/
 │   ├── figures/                         # Generated PNG figures (300 DPI)
-│   │   ├── fig1_network_lifetime.png
-│   │   ├── fig2_energy_consumption.png
-│   │   ├── fig3_load_balancing.png
-│   │   ├── fig4_delivery_ratio.png
-│   │   ├── fig5_convergence_rate.png
-│   │   └── fig6_scalability.png
+│   │   ├── fig1_architecture.png        # Two-layer architecture schematic (static asset)
+│   │   ├── fig2_network_lifetime.png
+│   │   ├── fig3_energy_consumption.png
+│   │   ├── fig4_load_balancing.png
+│   │   ├── fig5_delivery_ratio.png
+│   │   ├── fig6_convergence.png
+│   │   └── fig7_multi_scale_hnd.png
 │   ├── tables/                          # Generated CSV tables
 │   │   ├── table1_performance_comparison.csv
 │   │   ├── table2_algorithm_characteristics.csv
@@ -48,7 +49,7 @@ hnd_by_scale.csv ───────────────→  data_parser.p
 energy_timeseries.csv ──────────→    ↓
 jain_fairness.csv ──────────────→  statistical_analysis.py  → statistical_report.txt
 convergence_data.csv ───────────→    ↓
-ablation_study.csv ─────────────→  generate_all_figures.py  → Fig 1-6 (PNG)
+ablation_study.csv ─────────────→  generate_all_figures.py  → Fig 2-7 (PNG)
                                    generate_all_tables.py   → Table 1-3 (CSV)
 ```
 
@@ -80,14 +81,15 @@ python src/run_pipeline.py --data-dir ../WSN-Experiment/output/
 
 | Figure | Description | Source Function |
 |--------|-------------|-----------------|
-| Fig 1 | Network lifetime (HND) across scales | `fig1_network_lifetime()` |
-| Fig 2 | Energy consumption per round | `fig2_energy_consumption()` |
-| Fig 3 | Load balancing (Jain's fairness) over time | `fig3_load_balancing()` |
-| Fig 4 | Delivery ratio vs network density | `fig4_delivery_ratio()` |
-| Fig 5 | Convergence rate analysis (log-log) | `fig5_convergence_rate()` |
-| Fig 6 | Scalability (control messages + RAM) | `fig6_scalability()` |
+| Fig 1 | Two-layer architecture schematic | static asset (not generated) |
+| Fig 2 | Network lifetime (HND) across scales | `fig2_network_lifetime()` |
+| Fig 3 | Energy consumption per round | `fig3_energy_consumption()` |
+| Fig 4 | Load balancing (Jain's fairness) over time | `fig4_load_balancing()` |
+| Fig 5 | Delivery ratio vs network density | `fig5_delivery_ratio()` |
+| Fig 6 | Convergence behaviour (error, gradient norm, energy) | `fig6_convergence()` |
+| Fig 7 | Multi-scale HND (Ours vs DRL-based) | `fig7_multi_scale_hnd()` |
 
-Note: Fig 7 (hardware validation) is generated separately by `WSN-Hardware/generate_figure.py`.
+Note: Fig 8 (hardware validation) is generated separately by `WSN-Hardware/generate_figure.py`.
 
 ### Tables
 
@@ -96,6 +98,7 @@ Note: Fig 7 (hardware validation) is generated separately by `WSN-Hardware/gener
 | Table 1 | Performance comparison (300-node, 30 runs) | `table1_performance_comparison()` |
 | Table 2 | Algorithm characteristics (RAM, ROM, convergence) | `table2_algorithm_characteristics()` |
 | Table 3 | Ablation study results (6 variants) | `table3_ablation_study()` |
+| Table 4 | Hardware validation (15-node TelosB) | `WSN-Hardware/output/validation_results.csv` |
 
 ### Statistical Report
 

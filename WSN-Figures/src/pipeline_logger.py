@@ -9,7 +9,7 @@ Usage:
 
     logger = PipelineLogger("output/logs", "run_pipeline")
     logger.info("Loading data...")
-    logger.log_figure("fig1_network_lifetime", "output/figures/fig1_network_lifetime.png", status="OK")
+    logger.log_figure("fig2_network_lifetime", "output/figures/fig2_network_lifetime.png", status="OK")
     logger.log_table("table1_performance_comparison", "output/tables/table1_performance_comparison.csv", status="OK")
     logger.finalize(exit_code=0)
 """
